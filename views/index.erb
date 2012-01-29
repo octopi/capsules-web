@@ -19,6 +19,10 @@ window.fbAsyncInit = function() {
   FB.Event.subscribe('auth.login', function(response) {
     window.location = "http://young-spring-5136.herokuapp.com/me";
   });
+  FB.getLoginStatus(function(response) {
+  	if(response.status === 'connected') {
+  		window.location = "http://young-spring-5136.herokuapp.com/me";
+  	}
 };
 (function(d){
    var js, id = 'facebook-jssdk'; if (d.getElementById(id)) {return;}
