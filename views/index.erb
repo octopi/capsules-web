@@ -17,7 +17,7 @@ window.fbAsyncInit = function() {
     oauth      : true
   });
   FB.Event.subscribe('auth.login', function(response) {
-    window.location = "http://young-spring-5136.herokuapp.com/login/"+response.authResponse.userID; // change to POST request
+  	post_to_url('http://young-spring-5136.herokuapp.com/login', {'user_id': response.authResponse.userID}, 'post');
   });
   FB.getLoginStatus(function(response) {
   	if(response.status === 'connected') {
@@ -31,6 +31,28 @@ window.fbAsyncInit = function() {
    js.src = "//connect.facebook.net/en_US/all.js";
    d.getElementsByTagName('head')[0].appendChild(js);
  }(document));
+
+ function post_to_url(path, params, method) {
+    method = method || "post"; // Set method to post by default, if not specified.
+
+    // The rest of this code assumes you are not using a library.
+    // It can be made less wordy if you use one.
+    var form = document.createElement("form");
+    form.setAttribute("method", method);
+    form.setAttribute("action", path);
+
+    for(var key in params) {
+        var hiddenField = document.createElement("input");
+        hiddenField.setAttribute("type", "hidden");
+        hiddenField.setAttribute("name", key);
+        hiddenField.setAttribute("value", params[key]);
+
+        form.appendChild(hiddenField);
+    }
+
+    document.body.appendChild(form);
+    form.submit();
+}
 </script>
 <div class="fb-login-button">Login with Facebook</div>
 
