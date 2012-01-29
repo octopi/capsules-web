@@ -12,6 +12,7 @@ get '/login/:user_id' do
   	conn = Mongo::Connection.from_uri(ENV['MONGOLAB_URI'])
   	db   = conn.db(uri.path.gsub(/^\//, ''))
   	users_coll = db.collection("users")
+  	puts params[:user_id]
   	user = users_coll.find("id" => params[:user_id]).each { |row|
   		puts row.inspect
   	}
