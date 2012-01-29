@@ -13,6 +13,7 @@ get '/login/:user_id' do
   	db   = conn.db(uri.path.gsub(/^\//, ''))
   	users_coll = db.collection("users")
   	user = users_coll.find("id" => params[:user_id])
+  	puts user
   	if user == nil
   		new_user = {"id" => params[:user_id]}
   		users_coll.insert(new_user)
