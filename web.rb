@@ -7,8 +7,14 @@ get '/' do
 	erb :index
 end
 
-get '/me' do
-	erb :me
+get '/login/:user_id' do
+	uri  = URI.parse(ENV['MONGOLAB_URI'])
+  	conn = Mongo::Connection.from_uri(ENV['MONGOLAB_URI'])
+  	db   = conn.db(uri.path.gsub(/^\//, ''))
+  	users_coll = db.collection("users")
+  	if users_coll.find("id" => params[:user_id]).length == 0
+  		new_user = {"id" => params[:user_id]}
+  	end
 end
 
 #uri  = URI.parse(ENV['MONGOLAB_URI'])
