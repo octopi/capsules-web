@@ -5,7 +5,10 @@ require 'mongo'
 
 get '/' do
 	erb :index
-  	
+end
+
+get '/me' do
+	erb :me
 end
 
 #uri  = URI.parse(ENV['MONGOLAB_URI'])
