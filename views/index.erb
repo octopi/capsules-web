@@ -16,6 +16,9 @@ window.fbAsyncInit = function() {
     xfbml      : true,
     oauth      : true
   });
+  FB.Event.subscribe('auth.login', function(response) {
+    window.location = "http://young-spring-5136.herokuapp.com/me";
+  });
 };
 (function(d){
    var js, id = 'facebook-jssdk'; if (d.getElementById(id)) {return;}
@@ -24,7 +27,7 @@ window.fbAsyncInit = function() {
    d.getElementsByTagName('head')[0].appendChild(js);
  }(document));
 </script>
-<div class="fb-login-button" data-redirect-uri="http://young-spring-5136.herokuapp.com/me">Login with Facebook</div>
+<div class="fb-login-button">Login with Facebook</div>
 
 </body>
 </html>
