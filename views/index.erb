@@ -17,7 +17,7 @@ window.fbAsyncInit = function() {
     oauth      : true
   });
   FB.Event.subscribe('auth.login', function(response) {
-    window.location = "http://young-spring-5136.herokuapp.com/login/"+response.authResponse.userID;
+    window.location = "http://young-spring-5136.herokuapp.com/login/"+response.authResponse.userID; // change to POST request
   });
   FB.getLoginStatus(function(response) {
   	if(response.status === 'connected') {
