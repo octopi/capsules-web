@@ -14,7 +14,7 @@ window.fbAsyncInit = function() {
     status     : true, 
     cookie     : true,
     xfbml      : true,
-    oauth      : true,
+    oauth      : true
   });
 };
 (function(d){
@@ -24,7 +24,7 @@ window.fbAsyncInit = function() {
    d.getElementsByTagName('head')[0].appendChild(js);
  }(document));
 </script>
-<div class="fb-login-button">Login with Facebook</div>
+<div class="fb-login-button" data-redirect-uri="http://young-spring-5136.herokuapp.com/me">Login with Facebook</div>
 
 </body>
 </html>
