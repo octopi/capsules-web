@@ -2,6 +2,7 @@ require 'sinatra'
 require 'rubygems'
 require 'uri'
 require 'mongo'
+require 'json'
 
 enable :sessions
 
@@ -34,8 +35,29 @@ post '/new_capsule' do
   	conn = Mongo::Connection.from_uri(ENV['MONGOLAB_URI'])
   	db   = conn.db(uri.path.gsub(/^\//, ''))
   	capsules = db.collection("capsules")
-  	new_capsule = {"strKey" => params[:strKey].strip!, "friends" => params[:friends]}
+  	new_capsule = {"strKey" => params[:strKey].strip!, "members" => eval(params[:members])}
   	capsules.insert(new_capsule);
+end
+
+get '/get_capsules/:fbid' do
+	content_type :json
+	uri  = URI.parse(ENV['MONGOLAB_URI'])
+  	conn = Mongo::Connection.from_uri(ENV['MONGOLAB_URI'])
+  	db   = conn.db(uri.path.gsub(/^\//, ''))
+  	capsules_coll = db.collection("capsules")
+
+  	capsules_list = {}
+  	i = 0
+  	capsules_coll.find().each { |capsule|
+  		capsule['members'].each { |id, member|
+  			if member['fbid'].to_s == params[:fbid].to_s
+  				capsules_list[i] = capsule
+  				i = i+1
+  				break
+  			end
+  		}
+  	}
+  	capsules_list.to_json
 end
 
 #uri  = URI.parse(ENV['MONGOLAB_URI'])
