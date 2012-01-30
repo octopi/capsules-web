@@ -18,7 +18,7 @@ window.fbAsyncInit = function() {
   });
   FB.Event.subscribe('auth.login', function(response) {
   	console.log(response);
-  	post_to_url('http://localhost:5000/login', {'user_id': response.authResponse.userID}, 'post');
+  	post_to_url('http://young-spring-5136.herokuapp.com/login', {'user_id': response.authResponse.userID}, 'post');
   });
   FB.getLoginStatus(function(response) {
   	if(response.status === 'connected') {
