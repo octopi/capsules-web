@@ -6,33 +6,8 @@
 <body>
 <p>Capsules!</p>
 
-<div id="fb-root"></div>
+<a href="https://foursquare.com/oauth2/authenticate?client_id=F4CIIS2L1QKBNX4FUPXZ0XZHALSEX2YG43DYODQ4JDPHCH3U&amp;response_type=token&amp;redirect_uri=http://localhost:5000/login">Log in with foursquare</a>
 <script>
-window.fbAsyncInit = function() {
-  FB.init({
-    appId      : '372475036103410',
-    status     : true, 
-    cookie     : true,
-    xfbml      : true,
-    oauth      : true
-  });
-  FB.Event.subscribe('auth.login', function(response) {
-  	console.log(response);
-  	post_to_url('http://young-spring-5136.herokuapp.com/login', {'user_id': response.authResponse.userID}, 'post');
-  });
-  FB.getLoginStatus(function(response) {
-  	if(response.status === 'connected') {
-  		//window.location = "http://localhost:5000/me";
-  	}
-  });
-};
-(function(d){
-   var js, id = 'facebook-jssdk'; if (d.getElementById(id)) {return;}
-   js = d.createElement('script'); js.id = id; js.async = true;
-   js.src = "//connect.facebook.net/en_US/all.js";
-   d.getElementsByTagName('head')[0].appendChild(js);
- }(document));
-
  function post_to_url(path, params, method) {
     method = method || "post"; // Set method to post by default, if not specified.
 
@@ -55,7 +30,5 @@ window.fbAsyncInit = function() {
     form.submit();
 }
 </script>
-<div class="fb-login-button">Login with Facebook</div>
-
 </body>
 </html>
