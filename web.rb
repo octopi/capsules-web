@@ -3,6 +3,7 @@ require 'rubygems'
 require 'uri'
 require 'mongo'
 require 'json'
+require 'foursquare2'
 
 enable :sessions
 
@@ -32,7 +33,26 @@ end
 
 post '/home' do
 	fsq_token = params[:access_token]
-	fsq_token
+	client = Foursquare2::Client.new(:oauth_token => fsq_token)
+	user = client.user('self')
+
+	@name = user.firstName+' '+user.lastName
+	fsqid = user.id
+
+	# add to db if user doesn't exist
+	uri  = URI.parse(ENV['MONGOLAB_URI'])
+  	conn = Mongo::Connection.from_uri(ENV['MONGOLAB_URI'])
+  	db   = conn.db(uri.path.gsub(/^\//, ''))
+  	users_coll = db.collection("users")
+  	if users_coll.count(:query => {"fsqid" => fsqid}) == 0
+  		new_user = {"fsqid" => fsqid, "name" => @name}
+  		users_coll.insert(new_user)
+  		@new_user = "inserted new user"
+  	end
+  	user = users_coll.find({"fbid" => params[:user_id]}).first
+  	session['ocid'] = user['_id'].to_s
+
+	erb :home
 end
 
 get '/me' do
