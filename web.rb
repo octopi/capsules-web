@@ -68,7 +68,7 @@ post '/new_capsule' do
   	capsules.insert(new_capsule);
 end
 
-get '/get_capsules/:fbid' do
+get '/get_capsules/:fsqid' do
 	content_type :json
 	uri  = URI.parse(ENV['MONGOLAB_URI'])
   	conn = Mongo::Connection.from_uri(ENV['MONGOLAB_URI'])
@@ -79,7 +79,7 @@ get '/get_capsules/:fbid' do
   	i = 0
   	capsules_coll.find().each { |capsule|
   		capsule['members'].each { |id, member|
-  			if member['fbid'].to_s == params[:fbid].to_s
+  			if member['fsqid'].to_s == params[:fsqid].to_s
   				capsules_list[i] = capsule
   				i = i+1
   				break
