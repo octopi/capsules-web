@@ -22,7 +22,7 @@ post '/login' do
   	end
   	user = users_coll.find({"fbid" => params[:user_id]}).first
   	"b "+user['_id'].to_s
-  	sessions['ocid'] = user['_id'].to_s
+  	session['ocid'] = user['_id'].to_s
   	redirect '/me'
 end
 
