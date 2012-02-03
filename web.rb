@@ -64,7 +64,7 @@ post '/new_capsule' do
   	conn = Mongo::Connection.from_uri(ENV['MONGOLAB_URI'])
   	db   = conn.db(uri.path.gsub(/^\//, ''))
   	capsules = db.collection("capsules")
-  	new_capsule = {"strKey" => params[:strKey].strip!, "members" => eval(params[:members].gsub(/\:/, "=>")), "fileList" => eval(params[:fileList].gsub(/\:/, "=>"))}
+  	new_capsule = {"strKey" => params[:strKey].strip!, "members" => eval(params[:members].gsub(/\:/, "=>")), "fileList" => eval(params[:fileList].gsub(/\:/, "=>")), "creator" => params[:creator]}
   	capsules.insert(new_capsule);
 end
 
