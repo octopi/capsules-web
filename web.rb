@@ -78,13 +78,10 @@ get '/get_capsules/:fsqid' do
   	capsules_list = {}
   	i = 0
   	capsules_coll.find().each { |capsule|
-  		capsule['members'].each { |id, member|
-  			if member['fsqid'].to_s == params[:fsqid].to_s
-  				capsules_list[i] = capsule
-  				i = i+1
-  				break
-  			end
-  		}
+      if capsule['creator'] == params[:fsqid].to_s
+        capsules_list[i] = capsule
+        i = i+1
+      end
   	}
   	capsules_list.to_json
 end
